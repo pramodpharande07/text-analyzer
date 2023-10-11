@@ -18,6 +18,17 @@ export default function TextForm(props) {
         setText(newText);
     }
 
+    const handleCopy = ()=>{
+      let text = document.getElementById("myBox");
+      text.select();
+      navigator.clipboard.writeText(text.value)
+    }
+
+    const handleExtraSpaces = ()=> {
+      let newText = text.split(/[ ]+/);
+      setText(newText.join(" "))
+    }
+
     // without onchange we cant type text 
     const handleOnChange = (event)=>{
         // console.log("On change");
@@ -32,23 +43,24 @@ export default function TextForm(props) {
 
   return (
 <>
-<div className='container'>
+<div className='container' style={{color : props.mode === 'dark'?'white':'black'}}>
   <h1>{props.heading}</h1>
   <div className="mb-3">
-  <textarea className="form-control" onChange={handleOnChange} value={text} id="myBox" rows="8" ></textarea></div>
+  <textarea className="form-control" style={{color : props.mode === 'dark'?'white':'black', backgroundColor: props.mode === 'dark'?'gray':'white'}  } onChange={handleOnChange} value={text} id="myBox" rows="8" ></textarea></div>
   <button className="btn btn-primary mx-2" onClick={handleUpClick}>Convert to Uppercase</button>
   <button className="btn btn-primary mx-2" onClick={handleLoClick}>Convert to Lowercase</button>
+  <button className="btn btn-primary mx-2" onClick={handleCopy}>Copy Text</button>
+  <button className="btn btn-primary mx-2" onClick={handleExtraSpaces}>Remove Extra Spaces</button>
   <button className="btn btn-primary mx-2" onClick={handlClearClick}>Clear Text</button>
 </div> 
 
-<div className="container my-3">
+<div className="container my-3" style={{color : props.mode === 'dark'?'white':'black'}}>
 <h2>Your Text Summary</h2>
 <p>{text.split(" ").length} words {text.length} characters</p>
 <p>{0.008 * text.split(" ").length} Read Minute</p>
 <h2>Preview</h2>
-<p>{text}</p>
+<p>{text.length>0?text:"Enter something in textbox above to preview it here"}</p>
 </div>
 </>
-
   )
 }
