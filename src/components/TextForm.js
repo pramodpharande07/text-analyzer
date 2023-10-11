@@ -6,27 +6,32 @@ export default function TextForm(props) {
         // console.log("Uppercase was Clicked:" + text);
         let newText = text.toUpperCase();
         setText(newText);
+        props.showAlert("Text is converted to uppercase","success")
     }
 
     const handleLoClick = ()=>{
         let newText = text.toLowerCase();
         setText(newText);
+        props.showAlert("Text is converted to Lowecase","success")
     }
 
     const handlClearClick = ()=>{
         let newText = ''
         setText(newText);
+        props.showAlert("Text is Cleared","success")
     }
 
     const handleCopy = ()=>{
       let text = document.getElementById("myBox");
       text.select();
       navigator.clipboard.writeText(text.value)
+      props.showAlert("Text is Copied","success")
     }
 
     const handleExtraSpaces = ()=> {
       let newText = text.split(/[ ]+/);
       setText(newText.join(" "))
+      props.showAlert("Extra spaces removed","success")
     }
 
     // without onchange we cant type text 
